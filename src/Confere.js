@@ -12,6 +12,45 @@ var config = {
  */
 var ConfereJs = function (options) {
 
+    /**
+     * Return a promisse that Settles all promises and wait for all to be in a resolved state
+     * to resolve o reject
+     * @param promises
+     * @returns {Promise}
+     */
+    let settlePromises = (promises) => {
+        return new Promise ((resolve, reject) => {
+            var remaining = promises.length;
+            var results = {};
+
+            var checkDone = () => {
+                if (--remaining == 0){
+                    //no results means validation success since we ignored the success results values
+                    results.length != 0 ? reject(results) : resolve();
+                }
+            };
+
+            promises.forEach ((item, index) => {
+                // check if the array entry is actually a thenable
+                if (typeof item.then === 'function') {
+                    item.then(() => { //for now we do not need the success result value
+                        checkDone();
+                    }).catch(err => {
+                        if(typeof results[err.field] === 'undefined') results[err.field] = [err];
+                        else results[err.field].push(err);
+                        checkDone();
+                    });
+                }else {
+                    --remaining;
+                }
+            });
+
+            if (remaining === 0){ // special cases for zero promises
+                checkDone();
+            }
+        });
+    }
+
     this.validators = {};
 
     // merge our options with the default configuration to do our plugin initial setup
@@ -61,13 +100,7 @@ var ConfereJs = function (options) {
             });
         });
 
-        return new Promise((resolve, reject) => {
-            Promise.all(promises).then(res => {
-                resolve();
-            }).catch(res => {
-                reject(res);
-            });
-        })
+        return settlePromises(promises);
     }
 }
 

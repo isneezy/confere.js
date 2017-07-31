@@ -3,7 +3,7 @@ export default {
         return new Promise(function (resolve, reject) {
             if (typeof value === 'undefined' || value === null || value == ''){
                 reject({
-                    valid: false,
+                    field: name,
                     message: `${name} field is required.`
                 })
             }else {
@@ -18,6 +18,7 @@ export default {
                 resolve();
             }
             reject({
+                field: name,
                 message: `${name} is not a valid email`
             })
         });
@@ -28,6 +29,7 @@ export default {
         return new Promise((resolve, reject) => {
             var min = parseInt(params[0]);
             if(value.length < min) reject({
+                field: name,
                 message: `${name} field must have at least ${min} chars in length`
             });
             else resolve();
@@ -39,6 +41,7 @@ export default {
         return new Promise((resolve, reject) => {
             var max = parseInt(params[0]);
             if(value.length > max) reject({
+                field: name,
                 message: `${name} field must not pass ${max} chars in length`
             });
             else resolve();
@@ -49,6 +52,7 @@ export default {
         return new Promise((resolve, reject) =>{
             if(value == 'isneezy'){
                 reject({
+                    field: name,
                     message: `${name} field must be unique`
                 });
             }
