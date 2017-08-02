@@ -1,7 +1,7 @@
 {
   "name": "conferejs",
   "version": "0.0.1",
-  "description": "Sim",
+  "description": "A simple promise based javascript validation library with extras",
   "main": "dist/confere.js",
   "scripts": {
     "build": "WEBPACK_ENV=build webpack",
@@ -10,13 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://githup.com/isneezy/conferejs"
+    "url": "git+https://github.com/isneezy/confere.js.git"
   },
+  "bugs": {
+    "url": "https://github.com/isneezy/confere.js/issues"
+  },
+  "homepage": "https://github.com/isneezy/confere.js#readme",
   "keywords": [
-    "confere"
+    "confere", "validation", "input", "validate", "data-valdiation", "input-validation", "validation-library"
   ],
   "author": "Ivan Vilanculo <vilanculoivan@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel": "6.3.13",
     "babel-cli": "^6.24.1",
