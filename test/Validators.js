@@ -1,3 +1,4 @@
+import ConfereJs from '../src/Confere';
 import *  as validators from '../src/validators';
 var assert = require('assert');
 var expect = require('expect.js');
@@ -63,5 +64,40 @@ describe('Validators', function() {
                 done();
             });
         });
+    })
+
+    describe("dates", () => {
+
+        describe("date", () => {
+            
+            it("should validate without error", done => {
+                validators.date("birth_date", "1992-02-13", [], ConfereJs.getDefaults()).then(done).catch(done);
+            });
+
+            it("should validate with error", done => {
+                validators.date("birth_date", "1992/02/12", [], ConfereJs.getDefaults()).then(() => {
+                    done(new Error(/Does not validate with error/))
+                }).catch(result => {
+                    expect(result).to.be.an(Error);
+                    done()
+                });
+            })
+        })
+
+        describe("after", () => {
+
+            it("should validate without error", done => {
+                validators.after("birth_date", "1992-02-13", ["1992-02-12"], ConfereJs.getDefaults()).then(done).catch(done);
+            })
+
+            it("should validate with error", done => {
+                validators.after("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults()).then(() => {
+                    done(new Error(/Does not validate with error/))
+                }).catch(result => {
+                    expect(result).to.be.an(Error);
+                    done()
+                });
+            })
+        })
     })
 });

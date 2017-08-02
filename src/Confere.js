@@ -3,6 +3,7 @@ import * as validators from './validators';
 
 var config = {
     realTime: false,
+    dateFormat: 'yyyy-MM-dd',
     validators
 }
 
@@ -10,8 +11,6 @@ var config = {
  *
  */
 class ConfereJs{
-
-    private validators;
 
     constructor(options){
         this.validators = {};
@@ -33,12 +32,20 @@ class ConfereJs{
                 var validator = rule.split(':')[0];
                 var params = rule.split(':').length > 1 ? rule.split(':')[1].split('m') : [];
                 if(typeof this.options.validators[validator] === 'function'){
-                    this.validators[key].validators.push((value) => this.options.validators[validator](key, value, params));
+                    this.validators[key].validators.push((value) => this.options.validators[validator](key, value, params, this.options));
                 }else {
                     console.warn(`Validator '${validator}' is not registered, did you register correctly?`);
                 }
             });
         });
+    }
+
+    static getDefaults () {
+        return config;
+    }
+
+    static setDefaults (options) {
+        config = Object.assign(config, options);
     }
 
     /**
@@ -47,7 +54,7 @@ class ConfereJs{
      * @param promises
      * @returns {Promise}
      */
-    private static settlePromises = (promises) => {
+    settlePromises (promises) {
         return new Promise ((resolve, reject) => {
             var remaining = promises.length;
             var results = {};
@@ -85,7 +92,7 @@ class ConfereJs{
      * @param name validator name (lowercase and no spaces allowed)
      * @param handler function - the validator implementation
      */
-    public static validator (name, handler) {
+    static validator (name, handler) {
         config.validators[name] = handler;
     }
 
@@ -102,7 +109,7 @@ class ConfereJs{
                 promises.push(v(data[fieldName]));
             });
         });
-        return settlePromises(promises);
+        return this.settlePromises(promises);
     }
 }
 
