@@ -4,7 +4,8 @@ import * as validators from './validators';
 var config = {
     realTime: false,
     dateFormat: 'yyyy-MM-dd',
-    validators
+    validators,
+    rules: {}
 }
 
 /**
