@@ -6,8 +6,8 @@ Download or clone the repo
 add lib/confere.js to your html script
 
 ## Usage
-```
-var dataValidator = new Confrere({
+```js
+var confere = new Confrere({
     rules: {
         name: 'required|min:3|max:254',
         email: 'required|email|max:254',
@@ -15,7 +15,7 @@ var dataValidator = new Confrere({
     }
 });
 
-dataValidator.validate ({
+confere.validate ({
     name: "Jhon Doe",
     email: "myemail@gmail.com",
     birth_date: "1992-05-12",
@@ -25,6 +25,32 @@ dataValidator.validate ({
     //the data is invalid, show error messages, you can use the result.fields to retrive all validation errors errors    
 });
 ```
+
+### With Forms
+Html:
+```html
+<form>
+    <input type="text" name="name" data-rule="required|min:3"><br/>
+    <input type="text" name="surname" data-rule="required|min:3"><br/>
+    <input type="text" name="birth_date" data-rule="required|date|date_before:2004-01-01">
+</form>
+```
+
+```js
+var confere = new Confere({
+    rules: document.forms[0]
+})
+document.forms[0].addEventListener('submit', function (e) {
+        e.preventDefault();
+        confere.validate().then(function () {
+            //the data is valid, do some stuff ex: submiting the data
+        }).catch(function (err) {
+            //the data is invalid, show error messages, you can use the result.fields to retrive all validation errors errors
+        })
+    });
+```
+The code above will produce the same output as the previous, but row there is no need for complicated configuration because we are using htm attributes
+the stuff that we all knows!
 
 ## Contributing
 Found a bug?  
