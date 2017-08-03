@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
-var libraryName = 'conferejs';
+var libraryName = 'confere';
 var plugins = [], outputFile = `${libraryName}.js`;
 
 /**
