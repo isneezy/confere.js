@@ -17,7 +17,7 @@ var config = {
     output: {
         path: __dirname + '/lib',
         filename: outputFile,
-        library: libraryName,
+        library: "Confere",
         libraryTarget: 'umd',
         umdNamedDefine: true
     },
