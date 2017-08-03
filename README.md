@@ -1,11 +1,11 @@
 # confere.js  [![Build Status](https://travis-ci.org/isneezy/confere.js.svg?branch=master)](https://travis-ci.org/isneezy/confere.js)
 confere.js is a simple promise based javascript validation library heavily inspired by the laravel validation!
 
-##Installation
+## Installation
 Download or clone the repo
 add lib/confere.js to your html script
 
-##Usage
+## Usage
 ```
 var dataValidator = new Confrere({
     rules: {
@@ -26,11 +26,11 @@ dataValidator.validate ({
 });
 ```
 
-##Contributing
+## Contributing
 Found a bug?  
 Open an Issue on github, if you fixed yourself, fork the repo, create a branch,
 commit your changes ad open a pull request.  
 Please be sure to not include unnecessary changes on your commit and add some test whenever is possible
   
-##Credits
+## Credits
 Matt Kruse [http://www.mattkruse.com/](http://www.mattkruse.com/) - For his awesome js date functions found in [JavascriptToolbox.com](javascriptToolbox.com)
