@@ -1,5 +1,8 @@
 import expect from 'expect.js';
 import Confere from '../src/Confere';
+
+require('jsdom-global')();
+
 describe('Confere.js', () => {
 
     describe("validate", () => {
@@ -35,6 +38,15 @@ describe('Confere.js', () => {
                 expect(result).to.be.an(Error);
                 done();
             });
+        })
+    });
+
+    describe("getDefaults", () => {
+        it("should reurn key pair object as default options/config", done => {
+            var options = Confere.getDefaults();
+            expect(options).to.not.be.empty();
+            expect(options).to.have.keys(['realTime', 'dateFormat', 'validators', 'rules']);
+            done();
         })
     })
 
