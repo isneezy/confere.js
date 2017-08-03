@@ -17,7 +17,7 @@ class ConfereJs{
         this.validators = {};
 
         // merge our options with the default configuration to do our plugin initial setup
-        this.options = Object.assign (options, config);
+        this.options = Object.assign (config, options);
 
         //coverts the rules to a usable js objects
         Object.keys(options.rules).map(field => {
@@ -63,7 +63,9 @@ class ConfereJs{
             var checkDone = () => {
                 if (--remaining == 0){
                     //no results means validation success since we ignored the success results values
-                    results.length != 0 ? reject(results) : resolve();
+                    var globarError = new Error(`Some information is missing or incorrect`);
+                    globarError.result = results;
+                    Object.keys(results).length != 0 ? reject(globarError) : resolve();
                 }
             };
 
