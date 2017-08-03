@@ -16,6 +16,8 @@ class ConfereJs{
     constructor(options){
         this.validators = {};
 
+        ConfereJs.isFormElement (options.rules) ? ConfereJs.parseForm (options.rules, options) : options.rules;
+
         // merge our options with the default configuration to do our plugin initial setup
         this.options = Object.assign (config, options);
 
@@ -113,6 +115,32 @@ class ConfereJs{
             });
         });
         return this.settlePromises(promises);
+    }
+
+    /**
+     * Check if teh object / element is a Html Form Element
+     * @returns {boolean}
+     * @param elem
+     */
+    static isFormElement (elem) {
+        return elem instanceof HTMLFormElement;
+    }
+
+    /**
+     * Parses the form and generate auto configuration based on form data attributes
+     * specifically data-rule
+     * @param formElement
+     * @param options
+     */
+    static parseForm (formElement, options) {
+        options.form = formElement;
+        var rules = {};
+        for (var i = 0; i < formElement.elements.length; i++){
+            var name = formElement.elements.item(i).getAttribute('name');
+            var rule = formElement.elements.item(i).dataset.rule;
+            name != null && typeof name != 'undefined' && name != '' ? rules[name] = rule : false;
+        }
+        options.rules = rules;
     }
 }
 
