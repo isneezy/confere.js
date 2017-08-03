@@ -3,7 +3,6 @@ import Error from "./ValidatorError";
 export default {
     date (name, value, params, options) {
         return new Promise((resolve, reject) => {
-            console.log(dateFn.isDate(value, options.dateFormat), value, options.dateFormat);
             if(dateFn.isDate(value, options.dateFormat)) resolve();
             reject(new Error(name, `${name} field is not a valid date`));
         })
