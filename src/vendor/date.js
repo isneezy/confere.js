@@ -56,8 +56,11 @@
 //  "MMM dd, yyyy hh:mm:ssa" matches: "January 01, 2000 12:30:45AM"
 // ------------------------------------------------------------------
 
-var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+var MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+/**
+ * @return {string}
+ */
 function LZ(x) {return(x<0||x>9?"":"0")+x}
 
 // ------------------------------------------------------------------
@@ -69,8 +72,8 @@ function LZ(x) {return(x<0||x>9?"":"0")+x}
 // ------------------------------------------------------------------
 function isDate(val,format) {
 	var date=getDateFromFormat(val,format);
-	if (date==0) { return false; }
-	return true;
+	return date != 0;
+
 	}
 
 // -------------------------------------------------------------------
@@ -319,10 +322,10 @@ function getDateFromFormat(val,format) {
 // ------------------------------------------------------------------
 function parseDate(val) {
 	var preferEuro=(arguments.length==2)?arguments[1]:false;
-	generalFormats=new Array('y-M-d','MMM d, y','MMM d,y','y-MMM-d','d-MMM-y','MMM d');
-	monthFirst=new Array('M/d/y','M-d-y','M.d.y','MMM-d','M/d','M-d');
-	dateFirst =new Array('d/M/y','d-M-y','d.M.y','d-MMM','d/M','d-M');
-	var checkList=new Array('generalFormats',preferEuro?'dateFirst':'monthFirst',preferEuro?'monthFirst':'dateFirst');
+	var generalFormats=['y-M-d','MMM d, y','MMM d,y','y-MMM-d','d-MMM-y','MMM d'];
+	var monthFirst=['M/d/y','M-d-y','M.d.y','MMM-d','M/d','M-d'];
+	var dateFirst =['d/M/y','d-M-y','d.M.y','d-MMM','d/M','d-M'];
+	var checkList=['generalFormats',preferEuro?'dateFirst':'monthFirst',preferEuro?'monthFirst':'dateFirst'];
 	var d=null;
 	for (var i=0; i<checkList.length; i++) {
 		var l=window[checkList[i]];

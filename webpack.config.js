@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
-var libraryName = 'conferejs';
+var libraryName = 'confere';
 var plugins = [], outputFile = `${libraryName}.js`;
 
 /**
@@ -17,7 +17,7 @@ var config = {
     output: {
         path: __dirname + '/lib',
         filename: outputFile,
-        library: libraryName,
+        library: "Confere",
         libraryTarget: 'umd',
         umdNamedDefine: true
     },

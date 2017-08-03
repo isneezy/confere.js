@@ -4,7 +4,8 @@ import * as validators from './validators';
 var config = {
     realTime: false,
     dateFormat: 'yyyy-MM-dd',
-    validators
+    validators,
+    rules: {}
 }
 
 /**
@@ -15,8 +16,10 @@ class ConfereJs{
     constructor(options){
         this.validators = {};
 
+        ConfereJs.isFormElement (options.rules) ? ConfereJs.parseForm (options.rules, options) : options.rules;
+
         // merge our options with the default configuration to do our plugin initial setup
-        this.options = Object.assign (options, config);
+        this.options = Object.assign (config, options);
 
         //coverts the rules to a usable js objects
         Object.keys(options.rules).map(field => {
@@ -62,7 +65,9 @@ class ConfereJs{
             var checkDone = () => {
                 if (--remaining == 0){
                     //no results means validation success since we ignored the success results values
-                    results.length != 0 ? reject(results) : resolve();
+                    var globarError = new Error(`Some information is missing or incorrect`);
+                    globarError.result = results;
+                    Object.keys(results).length != 0 ? reject(globarError) : resolve();
                 }
             };
 
@@ -101,6 +106,10 @@ class ConfereJs{
      * @param data
      */
     validate (data) {
+
+        data = data == null || typeof data == 'undefined' ? {} : data;
+        data = ConfereJs.isFormElement(this.options.form) ? Object.assign(this.parseFormData(this.options.form), data) : data;
+
         var promises = [];
         Object.keys(this.validators).map(validator => {
             var fieldName =  validator;
@@ -110,6 +119,42 @@ class ConfereJs{
             });
         });
         return this.settlePromises(promises);
+    }
+
+    parseFormData(element) {
+        var data = {};
+        Object.keys(element.elements).map(key => {
+            var name = element.elements[key].getAttribute("name");
+            var value = element.elements[key].value;
+            data[name] = value;
+        });
+        return data;
+    }
+
+    /**
+     * Check if teh object / element is a Html Form Element
+     * @returns {boolean}
+     * @param elem
+     */
+    static isFormElement (elem) {
+        return elem instanceof HTMLFormElement;
+    }
+
+    /**
+     * Parses the form and generate auto configuration based on form data attributes
+     * specifically data-rule
+     * @param formElement
+     * @param options
+     */
+    static parseForm (formElement, options) {
+        options.form = formElement;
+        var rules = {};
+        for (var i = 0; i < formElement.elements.length; i++){
+            var name = formElement.elements.item(i).getAttribute('name');
+            var rule = formElement.elements.item(i).dataset.rule;
+            name != null && typeof name != 'undefined' && name != '' ? rules[name] = rule : false;
+        }
+        options.rules = rules;
     }
 }
 
