@@ -106,6 +106,10 @@ class ConfereJs{
      * @param data
      */
     validate (data) {
+
+        data = data == null || typeof data == 'undefined' ? {} : data;
+        data = ConfereJs.isFormElement(this.options.form) ? Object.assign(this.parseFormData(this.options.form), data) : data;
+
         var promises = [];
         Object.keys(this.validators).map(validator => {
             var fieldName =  validator;
@@ -115,6 +119,16 @@ class ConfereJs{
             });
         });
         return this.settlePromises(promises);
+    }
+
+    parseFormData(element) {
+        var data = {};
+        Object.keys(element.elements).map(key => {
+            var name = element.elements[key].getAttribute("name");
+            var value = element.elements[key].value;
+            data[name] = value;
+        });
+        return data;
     }
 
     /**
