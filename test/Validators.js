@@ -117,4 +117,21 @@ describe('Validators', function() {
         })
       })
     })
+
+  describe("Strings", () => {
+      describe("alpha", () => {
+          it('should validate without error', done => {
+              validators.alpha("username", "isneezy")
+                .then(validators.alpha("username", "isnEEZy")).then(done).catch(done)
+          })
+
+        it('should validate with error', done => {
+          validators.alpha("username", "@isneezy").then(() => {
+              done(new Error("Did not throw error"))
+          }).catch(() => {
+              done()
+          })
+        })
+      })
+  })
 });

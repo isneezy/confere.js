@@ -1,5 +1,6 @@
-import ValidationError from './ValidatorError';
+import ValidationError from './ValidatorError'
 import dates from './Dates'
+import strings from  './Strings'
 
 var validators = Object.assign({
         required(name, value){
@@ -48,7 +49,8 @@ var validators = Object.assign({
             });
         }
     },
-    dates
+    dates,
+  strings
 );
 
 export default validators
