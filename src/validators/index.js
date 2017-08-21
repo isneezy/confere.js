@@ -51,4 +51,7 @@ var validators = Object.assign({
     dates
 );
 
-export default validators;
+export default validators
+export {
+  validators
+}

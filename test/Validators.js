@@ -1,5 +1,5 @@
 import ConfereJs from '../src/Confere';
-import *  as validators from '../src/validators';
+import validators from '../src/validators';
 var assert = require('assert');
 var expect = require('expect.js');
 
@@ -99,5 +99,22 @@ describe('Validators', function() {
                 });
             })
         })
+
+      describe("after or equal", () => {
+
+        it("should validate without error", done => {
+          validators.afterEqual("birth_date", "1992-02-13", ["1992-02-13"], ConfereJs.getDefaults())
+            .then(validators.afterEqual("birth_date", "1992-02-13", ["1992-01-13"], ConfereJs.getDefaults()))
+            .then(done).catch(done)
+        })
+
+        it("should validate with error", done => {
+          validators.afterEqual("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults()).then(() => {
+              done(new Error('Did not trow error'))
+          }).catch(() => {
+              done()
+          })
+        })
+      })
     })
 });

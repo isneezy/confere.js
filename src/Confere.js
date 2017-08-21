@@ -1,5 +1,5 @@
 import ValidationError from './validators/ValidatorError';
-import * as validators from './validators';
+import validators from './validators';
 
 var config = {
     realTime: false,
