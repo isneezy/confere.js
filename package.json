@@ -4,8 +4,8 @@
   "description": "A simple promise based javascript validation library with extras",
   "main": "dist/confere.js",
   "scripts": {
-    "build": "WEBPACK_ENV=build webpack",
-    "dev": "WEBPACK_ENV=dev webpack --progress --colors --watch",
+    "build": "cross-env WEBPACK_ENV=build webpack",
+    "dev": "cross-env WEBPACK_ENV=dev webpack --progress --colors --watch",
     "test": "mocha --compilers js:babel-core/register --colors"
   },
   "repository": {
