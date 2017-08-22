@@ -268,6 +268,21 @@ describe('Validators', function () {
       })
     })
 
+    describe('digits_between', () => {
+      it('should validate without error', done => {
+        validators.digits_between('number', 1234567890123, [10,14]).then(done).catch(done)
+      })
+
+      it('should validate with error', done => {
+        validators.digits_between('number', 123456789, [10,14]).then(() => {
+          done(new Error('Did not throw error'))
+        }).catch((result) => {
+          expect(result).to.be.an(Error)
+          done()
+        })
+      })
+    })
+
     describe('integer', () => {
       it('should validate without error', done => {
         validators.integer('number', '12345678901234').then(done).catch(done)
