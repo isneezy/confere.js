@@ -100,16 +100,16 @@ describe('Validators', function() {
             })
         })
 
-      describe("after or equal", () => {
+      describe("after_or_equal", () => {
 
         it("should validate without error", done => {
-          validators.afterEqual("birth_date", "1992-02-13", ["1992-02-13"], ConfereJs.getDefaults())
-            .then(validators.afterEqual("birth_date", "1992-02-13", ["1992-01-13"], ConfereJs.getDefaults()))
+          validators.after_or_equal("birth_date", "1992-02-13", ["1992-02-13"], ConfereJs.getDefaults())
+            .then(validators.after_or_equal("birth_date", "1992-02-13", ["1992-01-13"], ConfereJs.getDefaults()))
             .then(done).catch(done)
         })
 
         it("should validate with error", done => {
-          validators.afterEqual("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults()).then(() => {
+          validators.after_or_equal("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults()).then(() => {
               done(new Error('Did not trow error'))
           }).catch((result) => {
               expect(result).to.be.an(Error);

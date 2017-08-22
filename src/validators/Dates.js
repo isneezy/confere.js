@@ -20,7 +20,7 @@ export default {
         })
     },
 
-    afterEqual (name, value = '', params = [], options = {}) {
+    after_or_equal (name, value = '', params = [], options = {}) {
         return new Promise((resolve, reject) => {
           const dateFormat = options.dateFormat
           const date = dateFn.getDateFromFormat(value, dateFormat)
