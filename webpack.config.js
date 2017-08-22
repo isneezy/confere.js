@@ -4,7 +4,7 @@ var libraryName = 'confere';
 var plugins = [], outputFile = `${libraryName}.js`;
 
 if (process.env.WEBPACK_ENV === 'build') {
-    plugins.push(new UglifyJsPlugin({ minimize: true }));
+    plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
     outputFile = libraryName + '.min.js';
 } else {
     outputFile = libraryName + '.js';
