@@ -1,5 +1,6 @@
 import ValidationError from './validators/ValidatorError'
 import validators from './validators'
+import * as Decorators from './decorators'
 
 var config = {
   realTime: false,
@@ -15,9 +16,14 @@ class ConfereJs {
 
   constructor(options) {
     this.validators = {}
+    this.decorator = null
 
     ConfereJs.isFormElement(options.rules) ? ConfereJs.parseForm(options.rules, options) : options.rules
 
+    if (options.form) {
+      // converts decorator property to form decorator instance
+      this.decorator = Decorators[options.form.dataset.decorator]
+    }
     // merge our options with the default configuration to do our plugin initial setup
     this.options = Object.assign(config, options)
 
@@ -63,14 +69,27 @@ class ConfereJs {
       var results = {}
 
       var checkDone = () => {
+        if (--remaining == 0){
+          //no results means validation success since we ignored the success results values
+          var globarError = new Error(`Some information is missing or incorrect`);
+          globarError.result = results;
+          Object.keys(results).length != 0 ? reject(globarError) : resolve();
+        }
+      };
+
+      var checkDone = () => {
         if (--remaining == 0) {
           //no results means validation success since we ignored the success results values
           var globarError = new Error(`Some information is missing or incorrect`)
           globarError.result = results
-          Object.keys(results).length != 0 ? reject(globarError) : resolve()
+          if (Object.keys(results).length != 0) {
+            reject(globarError)
+          } else{
+            resolve()
+          }
+          if (typeof this.decorator === 'function') this.decorator(results, this.options.form, this.options)
         }
       }
-
       promises.forEach((item, index) => {
         // check if the array entry is actually a thenable
         if (typeof item.then === 'function') {
@@ -163,13 +182,13 @@ class ConfereJs {
     for (const empty of emptyValues) {
       if( value === empty ) return true
     }
-
-    if (value instanceof Array && value.length === 0) return true
-    if (value instanceof Object && Object.keys(value).length === 0) return true
+    if(typeof value === 'array' && value.length === 0) return true
     return false
   }
 
 }
+
+console.log(ConfereJs.isEmpty([]))
 
 export default ConfereJs
 export {
