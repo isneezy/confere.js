@@ -50,4 +50,23 @@ describe('Confere.js', () => {
         })
     })
 
+    describe('isEmpty', () => {
+      it('sould return true', done => {
+        let undef
+        expect(Confere.isEmpty('')).to.be(true)
+        expect(Confere.isEmpty(null)).to.be(true)
+        expect(Confere.isEmpty(undef)).to.be(true)
+        expect(Confere.isEmpty([])).to.be(true)
+        expect(Confere.isEmpty({})).to.be(true)
+        done()
+      })
+
+      it('should return true', done => {
+        expect(Confere.isEmpty('something')).to.be(false)
+        expect(Confere.isEmpty(Confere)).to.be(false)
+        expect(Confere.isEmpty([1,2,3])).to.be(false)
+        done()
+      })
+    })
+
 });

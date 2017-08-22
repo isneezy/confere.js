@@ -1,3 +1,4 @@
+import Confere from '../Confere'
 import Error from './ValidatorError'
 import dates from './Dates'
 import strings from './Strings'
@@ -15,6 +16,7 @@ var validators = Object.assign({
     },
 
     boolean(name, value) {
+      if (Confere.isEmpty(value)) resolve()
       return new Promise((resolve, reject) => {
         if((value === 'true' || value === 1 || value === true) || (value === 'false' || value === 0 || value === false)) resolve()
         reject(new Error(name, `${name} field must be boolean`))
