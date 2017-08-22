@@ -1,9 +1,11 @@
 import dateFn from '../vendor/date'
 import Error from './ValidatorError'
+import Confere from '../Confere'
 
 export default {
   date(name, value, params, options) {
     return new Promise((resolve, reject) => {
+      if (Confere.isEmpty(value)) resolve()
       if (dateFn.isDate(value, options.dateFormat)) resolve()
       reject(new Error(name, `${name} field is not a valid date`))
     })
@@ -11,6 +13,7 @@ export default {
 
   after(name, value, params, options) {
     return new Promise((resolve, reject) => {
+      if (Confere.isEmpty(value)) resolve()
       var dateFormat = options.dateFormat
       var date = dateFn.getDateFromFormat(value, dateFormat)
       var after = dateFn.getDateFromFormat(params[0], dateFormat)
@@ -23,6 +26,7 @@ export default {
 
   after_or_equal(name, value = '', params = [], options = {}) {
     return new Promise((resolve, reject) => {
+      if (Confere.isEmpty(value)) resolve()
       const dateFormat = options.dateFormat
       const date = dateFn.getDateFromFormat(value, dateFormat)
       const after = dateFn.getDateFromFormat(params[0], dateFormat)
@@ -36,6 +40,7 @@ export default {
 
   before(name, value = '', params = [], options = {}) {
     return new Promise((resolve, reject) => {
+      if (Confere.isEmpty(value)) resolve()
       if (!(dateFn.isDate(value, options.dateFormat) && dateFn.isDate(params[0], options.dateFormat))) resolve()
       const date = dateFn.getDateFromFormat(value, options.dateFormat)
       const before = dateFn.getDateFromFormat(params[0], options.dateFormat)
@@ -46,6 +51,7 @@ export default {
 
   before_or_equal(name, value = '', params = [], options = {}) {
     return new Promise((resolve, reject) => {
+      if (Confere.isEmpty(value)) resolve()
       if (!(dateFn.isDate(value, options.dateFormat) && dateFn.isDate(params[0], options.dateFormat))) resolve()
       const date = dateFn.getDateFromFormat(value, options.dateFormat)
       const before = dateFn.getDateFromFormat(params[0], options.dateFormat)
