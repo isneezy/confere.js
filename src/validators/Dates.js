@@ -31,5 +31,25 @@ export default {
               reject(new Error(name, `${name} field should be equal or greater than ${params[0]}`))
           }
         })
-    }
+    },
+
+    before (name, value = '', params = [], options = {}) {
+      return new Promise((resolve, reject) => {
+        if (!(dateFn.isDate(value, options.dateFormat) && dateFn.isDate(params[0], options.dateFormat))) resolve()
+        const date = dateFn.getDateFromFormat(value, options.dateFormat)
+        const before = dateFn.getDateFromFormat(params[0], options.dateFormat)
+        if(date < before) resolve()
+        reject(new Error(name, `${name} field must be a date before ${params[0]}`))
+      })
+    },
+
+  before_or_equal (name, value = '', params = [], options = {}) {
+    return new Promise((resolve, reject) => {
+      if (!(dateFn.isDate(value, options.dateFormat) && dateFn.isDate(params[0], options.dateFormat))) resolve()
+      const date = dateFn.getDateFromFormat(value, options.dateFormat)
+      const before = dateFn.getDateFromFormat(params[0], options.dateFormat)
+      if(date <= before) resolve()
+      reject(new Error(name, `${name} field must be a date before or equal ${params[0]}`))
+    })
+  }
 }

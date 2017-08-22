@@ -117,6 +117,40 @@ describe('Validators', function() {
           })
         })
       })
+
+      describe("before", () => {
+
+        it("should validate without error", done => {
+          validators.before("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults()).then(done).catch(done);
+        })
+
+        it("should validate with error", done => {
+          validators.before("birth_date", "1992-02-13", ["1992-02-12"], ConfereJs.getDefaults()).then(() => {
+            done(new Error(/Does not validate with error/))
+          }).catch(result => {
+            expect(result).to.be.an(Error);
+            done()
+          });
+        })
+      })
+
+      describe("before_or_equal", () => {
+
+        it("should validate without error", done => {
+          validators.before_or_equal("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults())
+            .then(validators.before_or_equal("birth_date", "1992-02-13", ["1992-02-13"], ConfereJs.getDefaults()))
+            .then(done).catch(done);
+        })
+
+        it("should validate with error", done => {
+          validators.before_or_equal("birth_date", "1992-02-13", ["1992-02-12"], ConfereJs.getDefaults()).then(() => {
+            done(new Error(/Does not validate with error/))
+          }).catch(result => {
+            expect(result).to.be.an(Error);
+            done()
+          });
+        })
+      })
     })
 
   describe("Strings", () => {
