@@ -9,7 +9,7 @@ const parent =  ($element, $class) => {
   return $element;
 }
 
-export const bootstrap = (results, $form) => {
+export const bootstrap3 = (results, $form) => {
   const reset = (element) => {
     const group = formGroup(element)
     if(group) {
