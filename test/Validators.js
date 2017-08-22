@@ -18,6 +18,18 @@ describe('Validators', function() {
         });
     });
 
+  describe('boolean', done => {
+    it("should validate without error", done => {
+      validators.required('remember-me', '1').then(done).catch(done);
+    });
+    it("should validate with error", done => {
+      validators.required('remember-me', 'trua').then(done).catch(result => {
+        expect(result).to.be.an(Error);
+        done();
+      });
+    });
+  });
+
     describe('email', () => {
         it("should validate without error", done => {
             validators.email('email','ivan@vilanculo.me').then(done).catch(done);
