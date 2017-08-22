@@ -3,13 +3,12 @@ var path = require('path');
 var libraryName = 'confere';
 var plugins = [], outputFile = `${libraryName}.js`;
 
-/**
-if (env === 'build') {
-    plugins.push(new UglifyJsPlugin({ minimize: true }));
+if (process.env.WEBPACK_ENV === 'build') {
+    plugins.push(new webpack.optimize.UglifyJsPlugin({ minimize: true }));
     outputFile = libraryName + '.min.js';
 } else {
     outputFile = libraryName + '.js';
-}**/
+}
 
 var config = {
     entry: __dirname + '/src/index.js',
