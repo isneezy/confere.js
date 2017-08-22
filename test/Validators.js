@@ -111,7 +111,8 @@ describe('Validators', function() {
         it("should validate with error", done => {
           validators.afterEqual("birth_date", "1992-02-13", ["1992-02-14"], ConfereJs.getDefaults()).then(() => {
               done(new Error('Did not trow error'))
-          }).catch(() => {
+          }).catch((result) => {
+              expect(result).to.be.an(Error);
               done()
           })
         })
@@ -128,10 +129,43 @@ describe('Validators', function() {
         it('should validate with error', done => {
           validators.alpha("username", "@isneezy").then(() => {
               done(new Error("Did not throw error"))
-          }).catch(() => {
+          }).catch((result) => {
+              expect(result).to.be.an(Error);
               done()
           })
         })
       })
+
+    describe("alpha_dash", () => {
+      it('should validate without error', done => {
+        validators.alpha_dash("username", "isne_ezy")
+          .then(validators.alpha_dash("username", "isn_-EEZy")).then(done).catch(done)
+      })
+
+      it('should validate with error', done => {
+        validators.alpha("username", "@isneezy").then(() => {
+          done(new Error("Did not throw error"))
+        }).catch((result) => {
+          expect(result).to.be.an(Error);
+          done()
+        })
+      })
+    })
+
+    describe("alpha_numeric", () => {
+      it('should validate without error', done => {
+        validators.alpha_dash("username", "isneezy02")
+          .then(validators.alpha_dash("username", "issEEZy221")).then(done).catch(done)
+      })
+
+      it('should validate with error', done => {
+        validators.alpha("username", "@isneezy_22").then(() => {
+          done(new Error("Did not throw error"))
+        }).catch((result) => {
+          expect(result).to.be.an(Error);
+          done()
+        })
+      })
+    })
   })
 });
