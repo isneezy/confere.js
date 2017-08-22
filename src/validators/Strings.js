@@ -1,3 +1,4 @@
+import Error from './ValidatorError'
 export default {
   alpha (name, value) {
     return new Promise((resolve, reject) => {
@@ -27,5 +28,16 @@ export default {
       error.field = name
       reject(error)
     })
+  },
+
+  between(name, value, params = []) {
+    return new Promise((resolve, reject) => {
+      const min = parseInt(params[0])
+      const max = parseInt(params[1])
+      let length = value.length
+      if(length > min && length < max) resolve()
+      reject(new Error(name, `${name} field must be between ${min} and ${max}`))
+    })
   }
+
 }

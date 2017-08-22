@@ -201,5 +201,21 @@ describe('Validators', function() {
         })
       })
     })
+
+    describe("between", () => {
+      it('should validate without error', done => {
+        validators.between("username", "isneezy", [4,16])
+          .then(validators.between("username", [1,1,1,1,1], [4,16])).then(done).catch(done)
+      })
+
+      it('should validate with error', done => {
+        validators.between("username", "isn", [4,16])
+          .then(() => { done(new Error('Did not throw error')) })
+          .catch((result) => {
+            expect(result).to.be.an(Error);
+            done()
+        })
+      })
+    })
   })
 });

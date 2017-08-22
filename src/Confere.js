@@ -33,7 +33,7 @@ class ConfereJs{
             var validators = options.rules[key].split('|');
             validators.map(rule => {
                 var validator = rule.split(':')[0];
-                var params = rule.split(':').length > 1 ? rule.split(':')[1].split('m') : [];
+                var params = rule.split(':').length > 1 ? rule.split(':')[1].split(',') : [];
                 if(typeof this.options.validators[validator] === 'function'){
                     this.validators[key].validators.push((value) => this.options.validators[validator](key, value, params, this.options));
                 }else {
