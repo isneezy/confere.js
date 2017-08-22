@@ -267,5 +267,20 @@ describe('Validators', function () {
         })
       })
     })
+
+    describe('integer', () => {
+      it('should validate without error', done => {
+        validators.integer('number', '12345678901234').then(done).catch(done)
+      })
+
+      it('should validate with error', done => {
+        validators.integer('number', '123456a7890123a').then(() => {
+          done(new Error('Did not throw error'))
+        }).catch((result) => {
+          expect(result).to.be.an(Error)
+          done()
+        })
+      })
+    })
   })
 })
