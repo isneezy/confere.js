@@ -59,4 +59,5 @@ commit your changes ad open a pull request.
 Please be sure to not include unnecessary changes on your commit and add some test whenever is possible
   
 ## Credits
-Matt Kruse [http://www.mattkruse.com/](http://www.mattkruse.com/) - For his awesome js date functions found in [JavascriptToolbox.com](javascriptToolbox.com)
+Matt Kruse [http://www.mattkruse.com/](http://www.mattkruse.com/) - For his awesome js date functions found in [JavascriptToolbox.com](javascriptToolbox.com)  
+Diego Perini [https://gist.github.com/dperini](https://gist.github.com/dperini) - Url Regular Expression

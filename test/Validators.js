@@ -217,5 +217,21 @@ describe('Validators', function() {
         })
       })
     })
+
+    describe("url", () => {
+      it('should validate without error', done => {
+        validators.url("website", "http://ivan.vilanculo.me")
+          .then(validators.url("website", 'https://ivan.vilanculo.co.mz')).then(done).catch(done)
+      })
+
+      it('should validate with error', done => {
+        validators.url("website", "htt://www.a@_-.com")
+          .then(() => { done(new Error('Did not throw error')) })
+          .catch((result) => {
+            expect(result).to.be.an(Error);
+            done()
+          })
+      })
+    })
   })
 });
