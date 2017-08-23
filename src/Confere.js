@@ -163,13 +163,13 @@ class ConfereJs {
     for (const empty of emptyValues) {
       if( value === empty ) return true
     }
-    if(typeof value === 'array' && value.length === 0) return true
+
+    if (value instanceof Array && value.length === 0) return true
+    if (value instanceof Object && Object.keys(value).length === 0) return true
     return false
   }
 
 }
-
-console.log(ConfereJs.isEmpty([]))
 
 export default ConfereJs
 export {
