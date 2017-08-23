@@ -61,9 +61,9 @@ describe('Confere.js', () => {
         done()
       })
 
-      it('should return true', done => {
+      it('should return false', done => {
         expect(Confere.isEmpty('something')).to.be(false)
-        expect(Confere.isEmpty(Confere)).to.be(false)
+        expect(Confere.isEmpty({some:true})).to.be(false)
         expect(Confere.isEmpty([1,2,3])).to.be(false)
         done()
       })
