@@ -69,4 +69,16 @@ describe('Confere.js', () => {
       })
     })
 
+    describe('t', () => {
+      it('should return campo Name deve conter apenas digitos com tamanho = 10', done => {
+        let config = {
+          locale : 'zk',
+          rules : {user:'required'}
+        }
+        let confere = new Confere(config)
+        expect(confere.t('validations.digits', {name : 'Nome', param1 : 10})).to.be('campo Nome deve conter apenas digitos com tamanho = 10')
+        done()
+      })
+    })
+
 });
