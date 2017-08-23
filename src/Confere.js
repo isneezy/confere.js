@@ -1,11 +1,14 @@
 import ValidationError from './validators/ValidatorError'
 import validators from './validators'
+import i18n from './i18n'
 
 var config = {
   realTime: false,
   dateFormat: 'yyyy-MM-dd',
   validators,
-  rules: {}
+  rules: {},
+  locale: 'en',
+  i18n
 }
 
 /**
@@ -157,16 +160,41 @@ class ConfereJs {
     options.rules = rules
   }
 
-  static isEmpty (value) {
+  static isEmpty(value) {
     let undef
     const emptyValues = [undef, null, '', {}, []]
     for (const empty of emptyValues) {
-      if( value === empty ) return true
+      if (value === empty) return true
     }
 
     if (value instanceof Array && value.length === 0) return true
     if (value instanceof Object && Object.keys(value).length === 0) return true
     return false
+  }
+
+  /**
+   *
+   * @param locale
+   * @param key dot notation
+   * @param params
+   */
+  t(key = '', params = {}) {
+    let locale = this.options.locale
+    let t = this.options.i18n
+    key = `${locale}.${key}`
+    key.split('.').map(item => {
+      if (typeof t !== 'undefined') {
+        t = t[item]
+      }
+    })
+    if (typeof t === 'undefined') {
+      console.warn(`${key} translation doen't exists`)
+      return key
+    }
+    Object.keys(params).map(param => {
+      t = t.replace(`:${param}`, params[param])
+    })
+    return t
   }
 
 }
