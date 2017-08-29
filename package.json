@@ -1,7 +1,7 @@
 {
   "name": "confere.js",
-  "version": "0.3.3",
-  "description": "A simple promise based javascript validation library with extras",
+  "version": "0.4.0",
+  "description": "A simple and powefull promise based javascript validation library with extras",
   "main": "dist/confere.js",
   "scripts": {
     "build": "cross-env WEBPACK_ENV=build webpack --progress --colors & npm run build-dev",
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/isneezy/confere.js#readme",
   "keywords": [
     "confere",
+    "form-validation",
     "validation",
     "input",
     "validate",
