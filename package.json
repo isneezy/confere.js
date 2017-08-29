@@ -1,6 +1,6 @@
 {
   "name": "confere.js",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "A simple and powefull promise based javascript validation library with extras",
   "main": "dist/confere.js",
   "scripts": {
