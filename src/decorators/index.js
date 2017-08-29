@@ -4,15 +4,15 @@
  * @param $class
  * @returns {Element}
  */
-const parent =  ($element, $class) => {
+const parent = ($element, $class) => {
   while (($element = $element.parentElement) && !$element.classList.contains($class));
-  return $element;
+  return $element
 }
 
 export const bootstrap3 = (results, $form) => {
   const reset = (element) => {
     const group = formGroup(element)
-    if(group) {
+    if (group) {
       Array.map(group.getElementsByClassName('help-block'), element => {
         element.remove()
       })
@@ -37,10 +37,10 @@ export const bootstrap3 = (results, $form) => {
   }
 
   // add success state for every input
-  for(let element of $form.elements) {
+  for (let element of $form.elements) {
     reset(element)
     const group = formGroup(element)
-    if(group) success(group, $form.elements[name])
+    if (group) success(group, $form.elements[name])
   }
 
   Object.keys(results).map(name => {
@@ -51,7 +51,7 @@ export const bootstrap3 = (results, $form) => {
 export const bootstrap4 = (results, $form) => {
   const reset = (element) => {
     const group = formGroup(element)
-    if(group) {
+    if (group) {
       Array.map(group.getElementsByClassName('form-control-feedback'), element => {
         element.remove()
       })
@@ -79,10 +79,10 @@ export const bootstrap4 = (results, $form) => {
   }
 
   // add success state for every input
-  for(let element of $form.elements) {
+  for (let element of $form.elements) {
     reset(element)
     const group = formGroup(element)
-    if(group) success(group, element)
+    if (group) success(group, element)
   }
 
   Object.keys(results).map(name => {

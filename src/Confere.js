@@ -73,9 +73,9 @@ class ConfereJs {
           // no results means validation success since we ignored the success results values
           var globarError = new Error(`Some information is missing or incorrect`)
           globarError.result = results
-          if (Object.keys(results).length != 0) {
+          if (Object.keys(results).length !== 0) {
             reject(globarError)
-          } else{
+          } else {
             resolve()
           }
           if (typeof this.decorator === 'function') this.decorator(results, this.options.form, this.options)
@@ -172,8 +172,8 @@ class ConfereJs {
     for (const empty of emptyValues) {
       if (value === empty) return true
     }
-    if(typeof value === 'array' && value.length === 0) return true
-    if(value instanceof Object && Object.keys(value).length === 0) return true
+    if (value instanceof Array && value.length === 0) return true
+    if (value instanceof Object && Object.keys(value).length === 0) return true
     return false
   }
 
