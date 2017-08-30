@@ -1,56 +1,27 @@
 # confere.js  [![Build Status](https://travis-ci.org/isneezy/confere.js.svg?branch=master)](https://travis-ci.org/isneezy/confere.js)
 confere.js is a simple promise based javascript validation library heavily inspired by the laravel validation!
 
-## Installation
-Download or clone the repo
-add lib/confere.js to your html script
+For documentation please see docs branch.  
+For issues and feature requests visit the ['issue tracker'](https://github.com/isneezy/confere.js/issues).
 
-## Usage
-```js
-var confere = new Confrere({
-    rules: {
-        name: 'required|min:3|max:254',
-        email: 'required|email|max:254',
-        birth_date: 'required|date|date_before:2004-01-01' //ex: under 13 not allowed
-    }
-});
+## Building confere.js
+### Requeriments
+- node.js >= 5
+- npm
 
-confere.validate ({
-    name: "Jhon Doe",
-    email: "myemail@gmail.com",
-    birth_date: "1992-05-12",
-}).then (function () {
-    //the data is valid, do some stuff ex: submiting the data    
-}).catch(function (result) {
-    //the data is invalid, show error messages, you can use the result.fields to retrive all validation errors errors    
-});
+### Build Steps
+```sh
+git clone git@github.com:isneezy/confere.js.git
+cd confere.js
+npm install
+npm run build
 ```
 
-### With Forms
-Html:
-```html
-<form>
-    <input type="text" name="name" data-rule="required|min:3"><br/>
-    <input type="text" name="surname" data-rule="required|min:3"><br/>
-    <input type="text" name="birth_date" data-rule="required|date|date_before:2004-01-01">
-</form>
-```
+this will build confere.js, confere.js and confere.js.map to lib folder
 
-```js
-var confere = new Confere({
-    rules: document.forms[0]
-})
-document.forms[0].addEventListener('submit', function (e) {
-        e.preventDefault();
-        confere.validate().then(function () {
-            //the data is valid, do some stuff ex: submiting the data
-        }).catch(function (err) {
-            //the data is invalid, show error messages, you can use the result.fields to retrive all validation errors errors
-        })
-    });
-```
-The code above will produce the same output as the previous, but row there is no need for complicated configuration because we are using htm attributes
-the stuff that we all knows!
+### Continuous development
+You can run continuous build that runs the build on file changes by running `npm run dev`.  
+If you want to run tests run `npm run test`
 
 ## Contributing
 Found a bug?  
