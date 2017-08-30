@@ -10,6 +10,19 @@
             </p>
         </section>
         <section class="col-md-6">
+            <form @submit.prevent="validate" data-decorator="bootstrap4">
+                <section class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" name="name" data-rule="required|min:3|max:35">
+                </section>
+                <section class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" name="email" data-rule="required|email|min:3|max:35">
+                </section>
+                <input class="btn btn-primary" type="submit" value="Validate">
+            </form>
+        </section>
+        <section class="col-md-12 mt-4">
             <h6>HTML code:</h6>
             <code-block language="html">&lt;form id="my-form" data-decorator="bootstrap-4"&gt;
     &lt;div class="form-group"&gt;
@@ -35,20 +48,6 @@ document.getElementById('my-form').addEventHandler('submit', function (e) {
         // no need to do anything, confere.js will handle it for you :)
     })
 })</code-block>
-        </section>
-        <section class="col-md-6">
-            <h6>Final result:</h6>
-            <form @submit.prevent="validate" data-decorator="bootstrap4">
-                <section class="form-group">
-                    <label>Name</label>
-                    <input class="form-control" name="name" data-rule="required|min:3|max:35">
-                </section>
-                <section class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" name="email" data-rule="required|email|min:3|max:35">
-                </section>
-                <input class="btn btn-primary" type="submit" value="Validate">
-            </form>
         </section>
     </section>
 </template>

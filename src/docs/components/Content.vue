@@ -1,6 +1,6 @@
 <template>
     <section class="container mt-4">
-        <h4>Intalation and usage</h4>
+        <h4>Installation and usage</h4>
         <section class="row">
             <section class="col-md-12">
                 <h5>Install via npm</h5>
@@ -49,7 +49,8 @@ validator.validate({
                 </table>
             </section>
         </section>
-        <section class="row">
+        <AjaxValidator></AjaxValidator>
+        <section class="row mt-4">
             <section class="col-md-12 mt-3">
                 <h4>Avaliable Decorators</h4>
                 <p>Below is a list of all available form decorators function:</p>
@@ -76,6 +77,7 @@ validator.validate({
 <script>
     import codeBlock from './CodeBlock.vue'
     import HtmlForms from './snipets/HtmlForms.vue'
+    import AjaxValidator from './snipets/CustomAjaxValidator.vue'
     import validators from './data/validators'
     export default {
       computed: {
@@ -86,7 +88,7 @@ validator.validate({
         }
       },
       components: {
-        codeBlock, HtmlForms
+        codeBlock, HtmlForms, AjaxValidator
       }
     }
 </script>
