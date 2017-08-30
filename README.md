@@ -1,8 +1,7 @@
-# confere.js  [![Build Status](https://travis-ci.org/isneezy/confere.js.svg?branch=master)](https://travis-ci.org/isneezy/confere.js)
-[https://github.com/isneezy/confere.js](https://github.com/isneezy/confere.js)  
+# confere.js  [![Build Status](https://travis-ci.org/isneezy/confere.js.svg?branch=master)](https://travis-ci.org/isneezy/confere.js)  
 confere.js is a simple promise based javascript validation library heavily inspired by the laravel validation!
 
-For documentation please see docs branch.  
+For documentation visit [https://github.com/isneezy/confere.js](https://github.com/isneezy/confere.js)  
 For issues and feature requests visit the ['issue tracker'](https://github.com/isneezy/confere.js/issues).
 
 ## Building confere.js
