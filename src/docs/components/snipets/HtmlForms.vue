@@ -1,10 +1,11 @@
 <template>
     <section class="row mt-4">
-        <h5 class="col-md-12 mb-3">HTML Form Validation (<b>Form Decorators</b>)</h5>
+        <h5 class="col-md-12 mb-3">Displaying error messages (<b>Form Decorators</b>)</h5>
         <section class="col-md-12">
             <p>
-                To display the validation results on the ui without having to write our own logic, we use form decorators.
-                And there are many available form decorators for each framework and you can even declare your own if needed.<br/>
+                To display the validation results on the ui without having to write our own logic, we use form decorators, by adding the
+                <code v-higlight class="html">data-decorator</code> attribute to the form element and pass the form element as rules to confere.js.<br/>
+                There are many <a href="#">available form decorators</a> for each framework and you can even declare your own if needed.<br/>
                 In the example below will use the bootstrap4 from decorator.
             </p>
         </section>

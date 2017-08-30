@@ -30,13 +30,61 @@ validator.validate({
         </section>
 
         <html-forms></html-forms>
+        <section class="row">
+            <section class="col-md-12 mt-3">
+                <h4>Avaliable validation rules</h4>
+                <p>Below is a list of all available validation rules and their function:</p>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <td>Rule</td><td>Description</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="validator in validators">
+                        <td><code>{{validator.name}}</code></td>
+                        <td v-html="validator.description"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <section class="row">
+            <section class="col-md-12 mt-3">
+                <h4>Avaliable Decorators</h4>
+                <p>Below is a list of all available form decorators function:</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Name</td><td>Framework/Usage</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>bootstrap4</td><td>Use with bootstrap4 forms</td>
+                        </tr>
+                        <tr>
+                            <td>bootstrap3</td><td>Use with bootstrap3 forms</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
     </section>
 </template>
 
 <script>
     import codeBlock from './CodeBlock.vue'
     import HtmlForms from './snipets/HtmlForms.vue'
+    import validators from './data/validators'
     export default {
+      computed: {
+        validators () {
+          return validators.sort(function (a, b) {
+            return a.name > b.name
+          })
+        }
+      },
       components: {
         codeBlock, HtmlForms
       }
