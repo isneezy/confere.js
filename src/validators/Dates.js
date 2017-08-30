@@ -3,7 +3,7 @@ import Error from './ValidatorError'
 import Confere from '../Confere'
 
 export default {
-  date(name, value, params, options) {
+  date (name, value, params, options) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       if (dateFn.isDate(value, options.dateFormat)) resolve()
@@ -11,7 +11,7 @@ export default {
     })
   },
 
-  after(name, value, params, options) {
+  after (name, value, params, options) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       var dateFormat = options.dateFormat
@@ -24,7 +24,7 @@ export default {
     })
   },
 
-  after_or_equal(name, value = '', params = [], options = {}) {
+  after_or_equal (name, value = '', params = [], options = {}) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       const dateFormat = options.dateFormat
@@ -38,7 +38,7 @@ export default {
     })
   },
 
-  before(name, value = '', params = [], options = {}) {
+  before (name, value = '', params = [], options = {}) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       if (!(dateFn.isDate(value, options.dateFormat) && dateFn.isDate(params[0], options.dateFormat))) resolve()
@@ -49,7 +49,7 @@ export default {
     })
   },
 
-  before_or_equal(name, value = '', params = [], options = {}) {
+  before_or_equal (name, value = '', params = [], options = {}) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       if (!(dateFn.isDate(value, options.dateFormat) && dateFn.isDate(params[0], options.dateFormat))) resolve()

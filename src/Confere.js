@@ -14,7 +14,7 @@ var config = {
  */
 class ConfereJs {
 
-  constructor(options) {
+  constructor (options) {
     this.validators = {}
     this.decorator = null
 
@@ -27,7 +27,7 @@ class ConfereJs {
     // merge our options with the default configuration to do our plugin initial setup
     this.options = Object.assign(config, options)
 
-    //coverts the rules to a usable js objects
+    // coverts the rules to a usable js objects
     Object.keys(options.rules).map(field => {
       this.validators[field] = {
         field: field,
@@ -49,11 +49,11 @@ class ConfereJs {
     })
   }
 
-  static getDefaults() {
+  static getDefaults () {
     return config
   }
 
-  static setDefaults(options) {
+  static setDefaults (options) {
     config = Object.assign(config, options)
   }
 
@@ -63,28 +63,19 @@ class ConfereJs {
    * @param promises
    * @returns {Promise}
    */
-  settlePromises(promises) {
+  settlePromises (promises) {
     return new Promise((resolve, reject) => {
       var remaining = promises.length
       var results = {}
 
       var checkDone = () => {
-        if (--remaining == 0){
-          //no results means validation success since we ignored the success results values
-          var globarError = new Error(`Some information is missing or incorrect`);
-          globarError.result = results;
-          Object.keys(results).length != 0 ? reject(globarError) : resolve();
-        }
-      };
-
-      var checkDone = () => {
-        if (--remaining == 0) {
-          //no results means validation success since we ignored the success results values
+        if (--remaining === 0) {
+          // no results means validation success since we ignored the success results values
           var globarError = new Error(`Some information is missing or incorrect`)
           globarError.result = results
-          if (Object.keys(results).length != 0) {
+          if (Object.keys(results).length !== 0) {
             reject(globarError)
-          } else{
+          } else {
             resolve()
           }
           if (typeof this.decorator === 'function') this.decorator(results, this.options.form, this.options)
@@ -93,7 +84,7 @@ class ConfereJs {
       promises.forEach((item, index) => {
         // check if the array entry is actually a thenable
         if (typeof item.then === 'function') {
-          item.then(() => { //for now we do not need the success result value
+          item.then(() => { // for now we do not need the success result value
             checkDone()
           }).catch(err => {
             if (typeof results[err.field] === 'undefined') results[err.field] = [err]
@@ -116,7 +107,7 @@ class ConfereJs {
    * @param name validator name (lowercase and no spaces allowed)
    * @param handler function - the validator implementation
    */
-  static validator(name, handler) {
+  static validator (name, handler) {
     config.validators[name] = handler
   }
 
@@ -124,15 +115,14 @@ class ConfereJs {
    * Validates the input data
    * @param data
    */
-  validate(data) {
-
-    data = data == null || typeof data == 'undefined' ? {} : data
+  validate (data) {
+    data = data == null || typeof data === 'undefined' ? {} : data
     data = ConfereJs.isFormElement(this.options.form) ? Object.assign(this.parseFormData(this.options.form), data) : data
 
     var promises = []
     Object.keys(this.validators).map(validator => {
       var fieldName = validator
-      var validator = this.validators[validator]['validators']
+      validator = this.validators[validator]['validators']
       validator.map(v => {
         promises.push(v(data[fieldName]))
       })
@@ -140,7 +130,7 @@ class ConfereJs {
     return this.settlePromises(promises)
   }
 
-  parseFormData(element) {
+  parseFormData (element) {
     var data = {}
     Object.keys(element.elements).map(key => {
       var name = element.elements[key].getAttribute('name')
@@ -155,7 +145,7 @@ class ConfereJs {
    * @returns {boolean}
    * @param elem
    */
-  static isFormElement(elem) {
+  static isFormElement (elem) {
     return elem instanceof HTMLFormElement
   }
 
@@ -165,7 +155,7 @@ class ConfereJs {
    * @param formElement
    * @param options
    */
-  static parseForm(formElement, options) {
+  static parseForm (formElement, options) {
     options.form = formElement
     var rules = {}
     for (var i = 0; i < formElement.elements.length; i++) {
@@ -180,10 +170,10 @@ class ConfereJs {
     let undef
     const emptyValues = [undef, null, '', {}, []]
     for (const empty of emptyValues) {
-      if( value === empty ) return true
+      if (value === empty) return true
     }
-    if(typeof value === 'array' && value.length === 0) return true
-    if(value instanceof Object && Object.keys(value).length === 0) return true
+    if (value instanceof Array && value.length === 0) return true
+    if (value instanceof Object && Object.keys(value).length === 0) return true
     return false
   }
 

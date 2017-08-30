@@ -2,7 +2,7 @@ import Error from './ValidatorError'
 import Confere from '../Confere'
 
 export default {
-  min(name, value, params) {
+  min (name, value, params) {
     value = value === null || typeof value === 'undefined' ? '' : value
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
@@ -12,7 +12,7 @@ export default {
     })
   },
 
-  max(name, value, params) {
+  max (name, value, params) {
     value = value === null || typeof value === 'undefined' ? '' : value
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
@@ -22,17 +22,18 @@ export default {
     })
   },
 
-  email(name, value) {
+  email (name, value) {
     value = value === null || typeof value === 'undefined' ? '' : value
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      // /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if (re.test(value)) resolve()
       reject(new Error(name, `${name} is not a valid email`))
     })
   },
 
-  alpha(name, value) {
+  alpha (name, value) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       const re = /^[A-z]+$/
@@ -42,7 +43,7 @@ export default {
     })
   },
 
-  alpha_dash(name, value) {
+  alpha_dash (name, value) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       const re = /^[a-zA-Z0-9-_]+$/
@@ -52,7 +53,7 @@ export default {
     })
   },
 
-  alpha_numeric(name, value) {
+  alpha_numeric (name, value) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       const re = /^[a-zA-Z0-9]*$/
@@ -62,7 +63,7 @@ export default {
     })
   },
 
-  between(name, value, params = []) {
+  between (name, value, params = []) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       const min = parseInt(params[0])
@@ -73,7 +74,7 @@ export default {
     })
   },
 
-  url(name, value) {
+  url (name, value) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       // regex from @diegoperini see https://mathiasbynens.be/demo/url-regex and https://gist.github.com/dperini/729294
