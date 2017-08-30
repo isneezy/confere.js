@@ -18,6 +18,7 @@ var config = {
         filename: outputFile,
         library: "Confere",
         libraryTarget: 'umd',
+        libraryExport: 'default',
         umdNamedDefine: true
     },
     module: {
