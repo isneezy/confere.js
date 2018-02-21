@@ -18,7 +18,7 @@ export default {
     })
   },
 
-  integer (name, value) {
+  integer(name, value) {
     return new Promise((resolve, reject) => {
       if (Confere.isEmpty(value)) resolve()
       if (/^\d+$/.test(value)) resolve()
